@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
 let [canvas, ctx] = [null, null];
-let [lastX, lastY, lastButton] = [0, 0, 0];
+let lastButton = 0;
 const DPI = 2;
 
 function initializeCanvas() {
@@ -52,20 +52,20 @@ function handleMouseMove(e) {
 
             case 2:
                 // Eraser
-                const oldWidth = ctx.lineWidth;
-                const oldStyle = ctx.strokeStyle;
                 ctx.fillStyle = 'white';
                 ctx.beginPath();
                 ctx.arc(x, y, 50, 0, 2 * Math.PI);
                 ctx.fill();
+                break;
+
+            default:
                 break;
         }
     } else {
         currentPath = [[x, y]];
     }
 
-    [lastX, lastY, lastButton] = [x, y, button];
-
+    lastButton = button;
 }
 
 function clearCanvas() {
@@ -219,6 +219,9 @@ function handleKeyPress(e) {
             ctx.lineWidth = 4;
             dashPattern = 0;
             ctx.setLineDash([]);
+
+        case default:
+            break;
     }
 }
 
