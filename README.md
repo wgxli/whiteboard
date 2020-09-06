@@ -3,8 +3,8 @@
 A simple whiteboard for scratchwork. Best used with a drawing tablet that has remappable buttons.
 
 ## Keyborad Shortcuts
-- A: Decrease pen size
-- B: Increase pen size
+- -: Decrease pen size
+- +: Increase pen size
 - C: Cycle between paper types
 - E: Clear whiteboard
 - G: Black pen

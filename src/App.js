@@ -169,11 +169,11 @@ function clearCanvas() {
 
 function handleKeyPress(e) {
     switch (e.key) {
-        case 'a':
+        case '-':
             ctx.lineWidth = Math.max(ctx.lineWidth - 1, 1);
             break;
 
-        case 'b':
+        case '+':
             ctx.lineWidth += 1;
             break;
 
