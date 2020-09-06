@@ -219,6 +219,7 @@ function handleKeyPress(e) {
             ctx.lineWidth = 4;
             dashPattern = 0;
             ctx.setLineDash([]);
+            break;
 
         default:
             break;
