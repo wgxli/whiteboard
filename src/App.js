@@ -220,7 +220,7 @@ function handleKeyPress(e) {
             dashPattern = 0;
             ctx.setLineDash([]);
 
-        case default:
+        default:
             break;
     }
 }
