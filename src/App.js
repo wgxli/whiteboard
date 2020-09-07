@@ -167,6 +167,7 @@ function clearCanvas() {
     }
 
     // Page number
+    ctx.fillStyle = 'black';
     ctx.fillText((page + 1).toString(), w-40, h-20);
 
     ctx.restore();
