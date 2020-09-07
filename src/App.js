@@ -12,7 +12,13 @@ function initializeCanvas() {
     ctx.lineJoin = 'round';
     ctx.lineWidth = 4;
     ctx.strokeStyle = 'black';
+    ctx.font = '32px sans-serif';
+
+    clearCanvas();
 }
+
+const pages = [null];
+let page = 0;
 
 let onResize = () => null;
 let currentPath = [];
@@ -71,13 +77,11 @@ function handleMouseMove(e) {
 function clearCanvas() {
     onResize();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
 
-    const [
-        lastStyle, lastWidth, lastDash
-    ] = [
-        ctx.strokeStyle, ctx.lineWidth, ctx.getLineDash()
-    ];
+    // Calculations for line drawing
     const [w, h] = [DPI * window.innerWidth, DPI * window.innerHeight];
+
 
     paperType %= 4;
 
@@ -162,10 +166,27 @@ function clearCanvas() {
         ctx.fill();
     }
 
-    ctx.strokeStyle = lastStyle;
-    ctx.lineWidth = lastWidth;
-    ctx.setLineDash(lastDash);
+    // Page number
+    ctx.fillText((page + 1).toString(), w-40, h-20);
+
+    ctx.restore();
 }
+
+function savePage() {
+    const image = new Image();
+    image.src = canvas.toDataURL('image/png');
+    pages[page] = image;
+}
+
+function restorePage() {
+    paperType = 0;
+    clearCanvas();
+    const image = pages[page];
+    if (image === null) {return;}
+
+    ctx.drawImage(image, 0, 0);
+}
+
 
 function handleKeyPress(e) {
     switch (e.key) {
@@ -183,7 +204,18 @@ function handleKeyPress(e) {
             break;
 
         case 'e':
-            clearCanvas();
+            savePage();
+            if (page > 0) {page -= 1;}
+            restorePage();
+            break;
+
+        case 'f':
+            savePage();
+            page += 1;
+            if (page >= pages.length) {
+                pages.push(null);
+            }
+            restorePage();
             break;
 
 
